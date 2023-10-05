@@ -6,15 +6,7 @@ using namespace std;
 const int boardSize = 9;
 const int numBombs = 10;
 
-char board[9][9] = {{' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                    {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                    {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                    {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                    {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                    {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                    {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                    {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                    {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}};
+char board[boardSize][boardSize] = {};
 bool revealed = false;
 
 void placeBombs() {
@@ -106,6 +98,39 @@ int main() {
     } else {
       // Open cell
       board[row][col] = 'o';
+
+      if (board[row + 1][col] == '\0') {
+        board[row + 1][col] = 'o';
+      }
+
+      if (board[row - 1][col] == '\0') {
+        board[row - 1][col] = 'o';
+      }
+
+      if (board[row][col + 1] == '\0') {
+        board[row][col + 1] = 'o';
+      }
+
+      if (board[row][col - 1] == '\0') {
+        board[row][col - 1] = 'o';
+      }
+
+      if (board[row + 1][col + 1] == '\0') {
+        board[row + 1][col + 1] = 'o';
+      }
+
+      if (board[row - 1][col - 1] == '\0') {
+        board[row - 1][col - 1] = 'o';
+      }
+
+      if (board[row + 1][col - 1] == '\0') {
+        board[row + 1][col - 1] = 'o';
+      }
+
+      if (board[row - 1][col + 1] == '\0') {
+        board[row - 1][col + 1] = 'o';
+      }
+
       printBoard();
     }
   }

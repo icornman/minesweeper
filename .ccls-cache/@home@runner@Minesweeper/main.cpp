@@ -22,14 +22,15 @@ void placeBombs() {
   while (bombsPlaced < numBombs) {
     int row = rand() % boardSize;
     int col = rand() % boardSize;
-    if (board[row][col] != 'x') {
-      board[row][col] = 'x';
+    if (board[row][col] != '*') {
+      board[row][col] = '*';
       bombsPlaced++;
     }
   }
 }
 
 void printBoard() {
+  system("clear");
   cout << "  ";
   for (int col = 0; col < boardSize; col++) {
     cout << col << " ";
@@ -40,10 +41,18 @@ void printBoard() {
     cout << row << " ";
     for (int col = 0; col < boardSize; col++) {
       if (revealed) {
-        if (board[row][col] == 'x') {
+        if (board[row][col] == '*') {
           cout << "\x1b[31m"
                << "*"
                << "\x1b[0m"
+               << " ";
+        } else if (board[row][col] == 'x') {
+          cout << "\x1b[41m"
+               << "x"
+               << "\x1b[0m"
+               << " ";
+        } else if (board[row][col] == 'o') {
+          cout << "o"
                << " ";
         } else {
           cout << "\033[1;30m"
@@ -52,10 +61,15 @@ void printBoard() {
                << " ";
         }
       } else {
-        cout << "\033[1;30m"
-             << "."
-             << "\033[0m"
-             << " ";
+        if (board[row][col] == 'o') {
+          cout << "o"
+               << " ";
+        } else {
+          cout << "\033[1;30m"
+               << "."
+               << "\033[0m"
+               << " ";
+        }
       }
     }
     cout << endl;
@@ -78,11 +92,21 @@ int main() {
       continue;
     }
 
-    if (board[row][col] == 'x') {
+    if (board[row][col] == '*') {
+      board[row][col] = 'x';
       revealed = true;
+
       printBoard();
+
       cout << endl << "YOU LOSE!" << endl;
+
       return 0;
+    } else if (board[row][col] == 'o') {
+      cout << "Cell already revealed. Try again." << endl;
+    } else {
+      // Open cell
+      board[row][col] = 'o';
+      printBoard();
     }
   }
 }

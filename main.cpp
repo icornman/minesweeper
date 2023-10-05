@@ -6,7 +6,10 @@ using namespace std;
 void draw_basic_field() {
   for (int y = 0; y < 9; y++) {
     for (int x = 0; x < 9; x++) {
-      cout << "# ";
+      cout << "\033[1;30m"
+           << "#"
+           << "\033[0m"
+           << " ";
     }
     cout << endl;
   }
@@ -51,9 +54,7 @@ int main() {
     coords[y][0] = rand() % 9;
 
     for (int x = 0; x < 9; x++) {
-      if (coords[y][0] == x - 1) {
-        map[y][x] = '1';
-      } else if (coords[y][0] == x + 1) {
+      if ((coords[y][0] == x - 1) || (coords[y][0] == x + 1)) {
         map[y][x] = '1';
       } else {
         if (coords[y][0] == x) {
@@ -98,12 +99,16 @@ int main() {
                  << "\x1b[0m"
                  << " ";
           } else {
-            cout << "# ";
+            cout << "\033[1;30m"
+                 << "#"
+                 << "\033[0m"
+                 << " ";
           }
         }
         cout << endl;
       }
       cout << endl << "YOU LOSE!" << endl;
+      return 0;
     } else {
       draw_basic_field();
     }
